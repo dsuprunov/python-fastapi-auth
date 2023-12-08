@@ -5,11 +5,13 @@ import uvicorn
 from auth_basic.views import router as auth_basic_router
 from auth_header.views import router as auth_header_router
 from auth_cookie.views import router as auth_cookie_router
+from auth_jwt.views import router as auth_jwt_router
 
 router = APIRouter()
 router.include_router(router=auth_basic_router, prefix='/auth')
 router.include_router(router=auth_header_router, prefix='/auth')
 router.include_router(router=auth_cookie_router, prefix='/auth')
+router.include_router(router=auth_jwt_router, prefix='/auth')
 
 
 @asynccontextmanager
