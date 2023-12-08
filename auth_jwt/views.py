@@ -18,7 +18,6 @@ from auth_jwt.token import Token
 
 http_bearer = HTTPBearer()
 
-
 router = APIRouter(prefix='/jwt', tags=['JWT'])
 
 
@@ -71,12 +70,6 @@ def get_current_auth_user(
     )
 
 
-def get_current_active_auth_user(
-        user: User = Depends(get_current_auth_user)
-) -> User:
-    return user
-
-
 @router.post('/login/', response_model=Token)
 def login(
         user: User = Depends(validate_auth_user),
@@ -94,7 +87,7 @@ def login(
 
 @router.get('/check/')
 def check(
-        user: User = Depends(get_current_active_auth_user)
+        user: User = Depends(get_current_auth_user)
 ):
     return {
         'username': user.username,
