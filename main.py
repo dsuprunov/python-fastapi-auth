@@ -11,6 +11,7 @@ router.include_router(router=auth_basic_router, prefix='/auth')
 router.include_router(router=auth_header_router, prefix='/auth')
 router.include_router(router=auth_cookie_router, prefix='/auth')
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
