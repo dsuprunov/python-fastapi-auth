@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Header
 
 
-router = APIRouter(prefix='/auth', tags=['Auth'])
+router = APIRouter(prefix='/header', tags=['Header'])
 
 token_to_username = {
     'qwerty': 'admin',
@@ -21,7 +21,7 @@ def get_username(
     )
 
 
-@router.get('/header/')
+@router.get('/login/')
 def header(
         username: str = Depends(get_username)
 ):

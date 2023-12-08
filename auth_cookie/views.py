@@ -4,7 +4,7 @@ from time import time
 from fastapi import APIRouter, Depends, HTTPException, status, Header, Response, Cookie
 
 
-router = APIRouter(prefix='/auth', tags=['Auth'])
+router = APIRouter(prefix='/cookie', tags=['Cookie'])
 
 header_to_username = {
     'qwerty': 'admin',
@@ -43,7 +43,7 @@ def get_username(
     )
 
 
-@router.post('/cookie-login/')
+@router.post('/login/')
 def set_cookie(
         response: Response,
         username: str = Depends(get_username)
@@ -59,7 +59,7 @@ def set_cookie(
         'result': 'ok'
     }
 
-@router.get('/cookie-check')
+@router.get('/check/')
 def check_cookie(
         user_session_data: dict = Depends(get_session_data)
 ):
@@ -69,7 +69,7 @@ def check_cookie(
     }
 
 
-@router.get('/cookie-logout')
+@router.get('/logout/')
 def del_cookie(
         response: Response,
         session_id: str = Cookie(alias=COOKIE_SESSION_ID_KEY),

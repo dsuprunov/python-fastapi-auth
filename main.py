@@ -1,24 +1,28 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 import uvicorn
 
-from api_v1 import router as router_v1
+from auth_basic.views import router as auth_basic_router
+from auth_header.views import router as auth_header_router
+from auth_cookie.views import router as auth_cookie_router
 
-api_v1_prefix = '/api/v1'
-
+router = APIRouter()
+router.include_router(router=auth_basic_router, prefix='/auth')
+router.include_router(router=auth_header_router, prefix='/auth')
+router.include_router(router=auth_cookie_router, prefix='/auth')
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(lifespan=lifespan)
-app.include_router(router=router_v1, prefix=api_v1_prefix)
+app.include_router(router=router, prefix='')
 
 
 @app.get('/')
-def hello_index():
+def index():
     return {
-        'message': 'Hello index!',
+        'message': 'Hello World!',
     }
 
 

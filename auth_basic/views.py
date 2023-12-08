@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 
-router = APIRouter(prefix='/auth', tags=['Auth'])
+router = APIRouter(prefix='/basic', tags=['Basic'])
 
 security = HTTPBasic()
 
@@ -35,7 +35,7 @@ def get_username(
     return credentials.username
 
 
-@router.get('/basic/')
+@router.get('/login/')
 def basic(
         auth_username: str = Depends(get_username)
 ):
